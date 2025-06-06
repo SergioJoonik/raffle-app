@@ -1,4 +1,17 @@
 
+import { db } from '../db';
+import { usersTable } from '../db/schema';
 import { type User } from '../schema';
 
-export declare function getUsers(): Promise<User[]>;
+export const getUsers = async (): Promise<User[]> => {
+  try {
+    const result = await db.select()
+      .from(usersTable)
+      .execute();
+
+    return result;
+  } catch (error) {
+    console.error('Get users failed:', error);
+    throw error;
+  }
+};
